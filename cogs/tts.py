@@ -8,6 +8,7 @@ class TTS(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.has_role("Alexa")
     async def talk(self, ctx, *, text=None):
         if not text:
             speech = gTTS(text='I have no idea what to talk', lang='en', slow=False)
@@ -21,6 +22,7 @@ class TTS(commands.Cog):
         await self.bot.get_cog('Voice').play(ctx, sound_name)
 
     @commands.command()
+    @commands.has_role("Alexa")
     async def falar(self, ctx, *, text=None):
         if not text:
             speech = gTTS(text='Eu não sei o que falar', lang='pt', tld='com.br', slow=False)
@@ -34,6 +36,7 @@ class TTS(commands.Cog):
         await self.bot.get_cog('Voice').play(ctx, sound_name)
 
     @commands.command()
+    @commands.has_role("Alexa")
     async def talk_accent(self, ctx, lang, tld, *, text=None):
         lang = str(lang).lower()
         tld = str(tld).lower()

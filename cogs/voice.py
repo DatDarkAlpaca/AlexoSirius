@@ -13,17 +13,20 @@ class Voice(commands.Cog):
 
         if vc:
             try:
-                vc.play(FFmpegPCMAudio(executable=config['ffmpeg'], source=config['sounds'] + sound_name))
+                vc.play(FFmpegPCMAudio(executable=config['ffmpeg'], source=config['sounds'] + sound_name,
+                                       options="-loglevel panic"))
             except ClientException:
                 await ctx.send(f"{ctx.message.author.mention}, I'm already playing a song", delete_after=5)
         else:
             await ctx.send(f"{ctx.message.author.mention}, am I connected to any voice chat?", delete_after=5)
 
     @commands.command()
+    @commands.has_role("Alexa")
     async def scream(self, ctx):
         await Voice.play(ctx, 'scream.mp3')
 
     @commands.command()
+    @commands.has_role("Alexa")
     async def rawn(self, ctx):
         await Voice.play(ctx, 'rawn.mp3')
 

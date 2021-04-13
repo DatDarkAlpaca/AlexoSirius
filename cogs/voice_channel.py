@@ -16,6 +16,7 @@ class VoiceChannel(commands.Cog):
         self.bot = bot
 
     @commands.command(name='join')
+    @commands.has_role("Alexa")
     async def _join(self, ctx):
         voice_channel = ctx.author.voice.channel
 
@@ -40,6 +41,7 @@ class VoiceChannel(commands.Cog):
         await self.bot.get_cog('Timer').start(ctx)
 
     @commands.command(name='leave')
+    @commands.has_role("Alexa")
     async def _leave(self, ctx):
         mention = ctx.message.author.mention
 
