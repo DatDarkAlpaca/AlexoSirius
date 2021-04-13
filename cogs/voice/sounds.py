@@ -1,14 +1,18 @@
 from discord import FFmpegPCMAudio, ClientException
 from discord.ext import commands
+
+from utils.safe_functions import safe_delete_message
 from utils.config import config
 
 
-class Voice(commands.Cog):
+class Sounds(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @staticmethod
     async def play(ctx, sound_name):
+        await safe_delete_message(ctx.message)
+
         vc = ctx.voice_client
 
         if vc:
@@ -23,18 +27,18 @@ class Voice(commands.Cog):
     @commands.command()
     @commands.has_role("Alexa")
     async def scream(self, ctx):
-        await Voice.play(ctx, 'scream.mp3')
+        await Sounds.play(ctx, 'scream.mp3')
 
     @commands.command()
     @commands.has_role("Alexa")
     async def rawn(self, ctx):
-        await Voice.play(ctx, 'rawn.mp3')
+        await Sounds.play(ctx, 'rawn.mp3')
 
     @commands.command()
     @commands.has_role("Alexa")
     async def mama(self, ctx):
-        await Voice.play(ctx, 'mama.mp3')
+        await Sounds.play(ctx, 'mama.mp3')
 
 
 def setup(bot):
-    bot.add_cog(Voice(bot))
+    bot.add_cog(Sounds(bot))

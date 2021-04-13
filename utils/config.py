@@ -22,15 +22,11 @@ def create_default_config():
     config_file = Path(config_path)
     if not config_file.is_file():
         data = {
-            "token": '',
-            "prefix": ',',
-            "allowed_channels": [],
-            "ignored_cogs": ["__init__.py"],
-            "resources_path": './resources/',
-            "host": 'localhost',
-            "user": 'root',
-            "passwd": '',
-            "database": 'discord'
+            "token": "Put your token here",
+            "prefix": "=",
+
+            "ffmpeg": "C:/FFmpeg/bin/ffmpeg.exe [Your FFMpeG path]",
+            "sounds": "./sounds/"
         }
 
         try:
