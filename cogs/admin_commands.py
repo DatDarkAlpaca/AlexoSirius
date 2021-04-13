@@ -6,7 +6,7 @@ class AdminCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.is_owner()
     async def nuke(self, ctx, amount: int = 20):
         await safe_delete_message(ctx.message)
