@@ -38,7 +38,8 @@ class VoiceChannel(commands.Cog):
         await ctx.guild.change_voice_state(channel=voice_channel, self_deaf=True)
 
         # Start Timer:
-        await self.bot.get_cog('Timer').start(ctx)
+        if ctx.message.guild.id == 528000032356565032:
+            await self.bot.get_cog('Timer').start(ctx)
 
     @commands.command(name='leave')
     @commands.has_role("Alexa")
@@ -52,7 +53,7 @@ class VoiceChannel(commands.Cog):
         time = await self.bot.get_cog('Timer').stop(ctx)
 
         # Sends a message:
-        if time:
+        if time and ctx.message.guild.id == 528000032356565032:
             await ctx.send(f"{mention}, I've been in this call for {convert_time(time)}",
                            delete_after=10)
 

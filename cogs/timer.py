@@ -22,7 +22,7 @@ class Timer(commands.Cog):
         if not await self._exists_timer(ctx):
             self.current_timers.append((gid, datetime.now()))
         else:
-            await ctx.send(f"{mention}, I'm sorry, but this guild already have a timer.")
+            return
 
     async def _delete_timer(self, ctx):
         gid = ctx.message.guild.id
@@ -37,7 +37,7 @@ class Timer(commands.Cog):
 
         mention = ctx.message.author.mention
         if not deleted:
-            await ctx.send(f"{mention}, this guild has no timer set.")
+            return
 
     async def _get_timer(self, ctx):
         gid = ctx.message.guild.id
@@ -49,10 +49,16 @@ class Timer(commands.Cog):
 
     # Functions:
     async def start(self, ctx):
+        if not ctx.message.guild.id == 528000032356565032:
+            return
+
         await safe_delete_message(ctx.message)
         await self._insert_timer(ctx)
 
     async def stop(self, ctx):
+        if not ctx.message.guild.id == 528000032356565032:
+            return
+
         await safe_delete_message(ctx.message)
 
         timer = await self._get_timer(ctx)
