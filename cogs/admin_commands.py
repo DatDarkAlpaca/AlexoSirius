@@ -14,7 +14,7 @@ class AdminCommands(commands.Cog):
     @commands.is_owner()
     async def _reload_cog(self, ctx, *, cog_path: str):
         mention = ctx.message.author.mention
-        cog_path = cog_path.lower()
+        cog_path = 'cogs.' + cog_path.lower()
 
         try:
             self.bot.unload_extension(cog_path)
@@ -27,7 +27,7 @@ class AdminCommands(commands.Cog):
     @commands.is_owner()
     async def _load_cog(self, ctx, *, cog_path: str):
         mention = ctx.message.author.mention
-        cog_path = cog_path.lower()
+        cog_path = 'cogs.' + cog_path.lower()
 
         try:
             self.bot.load_extension(cog_path)
@@ -39,7 +39,7 @@ class AdminCommands(commands.Cog):
     @commands.is_owner()
     async def _unload_cog(self, ctx, *, cog_path: str):
         mention = ctx.message.author.mention
-        cog_path = cog_path.lower()
+        cog_path = 'cogs.' + cog_path.lower()
 
         try:
             self.bot.load_extension(cog_path)
