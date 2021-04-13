@@ -30,6 +30,11 @@ class Voice(commands.Cog):
     async def rawn(self, ctx):
         await Voice.play(ctx, 'rawn.mp3')
 
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def mama(self, ctx):
+        await Voice.play(ctx, 'mama.mp3')
+
 
 def setup(bot):
     bot.add_cog(Voice(bot))

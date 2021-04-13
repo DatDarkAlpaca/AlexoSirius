@@ -9,6 +9,9 @@ __pycache__/
 # Configuration Files:
 config.json
 
+# Command Files:
+*.cmd
+
 # Temporary MP3:
 text.mp3
 
