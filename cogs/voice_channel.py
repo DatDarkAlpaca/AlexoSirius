@@ -11,21 +11,33 @@ def convert_time(time):
     return '**{:02}h{:02}min{:02}s**'.format(int(hours), int(minutes), int(seconds))
 
 
-class Voice(commands.Cog):
+class VoiceChannel(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(name='join')
     async def _join(self, ctx):
-        channel = ctx.author.voice.channel
+        voice_channel = ctx.author.voice.channel
 
         await safe_delete_message(ctx.message)
 
-        await ctx.guild.change_voice_state(channel=channel, self_deaf=True)
+        # Failsafe:
+        if ctx.author.voice is None or ctx.author.voice.channel is None:
+            await ctx.send(f"{ctx.message.author.mention}, you're not connected to any channel.",
+                           delete_after=5)
+            return
 
+        # Connect:
+        if ctx.voice_client is None:
+            await voice_channel.connect()
+        else:
+            await ctx.voice_client.move_to(voice_channel)
+
+        # Deafen:
+        await ctx.guild.change_voice_state(channel=voice_channel, self_deaf=True)
+
+        # Start Timer:
         await self.bot.get_cog('Timer').start(ctx)
-
-        await channel.connect()
 
     @commands.command(name='leave')
     async def _leave(self, ctx):
@@ -39,8 +51,9 @@ class Voice(commands.Cog):
 
         # Sends a message:
         if time:
-            await ctx.send(f"{mention}, I've been in this call for {convert_time(time)}")
+            await ctx.send(f"{mention}, I've been in this call for {convert_time(time)}",
+                           delete_after=10)
 
 
 def setup(bot):
-    bot.add_cog(Voice(bot))
+    bot.add_cog(VoiceChannel(bot))
