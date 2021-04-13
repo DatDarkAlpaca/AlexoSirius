@@ -1,6 +1,6 @@
 from discord.ext import commands
 from utils.config import config
-from gtts import gTTS
+from aiogtts import aiogTTS
 
 
 class TTS(commands.Cog):
@@ -10,51 +10,45 @@ class TTS(commands.Cog):
     @commands.command()
     @commands.has_role("Alexa")
     async def talk(self, ctx, *, text=None):
-        if not text:
-            speech = gTTS(text='I have no idea what to talk', lang='en', slow=False)
-        else:
-            speech = gTTS(text=text, lang='en', slow=False)
-
+        aiogtts = aiogTTS()
         sound_name = 'text.mp3'
 
-        speech.save(config['sounds'] + sound_name)
+        if not text:
+            await aiogtts.save(text='I have no idea what to talk', lang='en', slow=False,
+                               filename=config['sounds'] + sound_name)
+        else:
+            await aiogtts.save(text=text, lang='en', slow=False, filename=config['sounds'] + sound_name)
 
         await self.bot.get_cog('Voice').play(ctx, sound_name)
 
     @commands.command()
     @commands.has_role("Alexa")
     async def falar(self, ctx, *, text=None):
-        if not text:
-            speech = gTTS(text='Eu não sei o que falar', lang='pt', tld='com.br', slow=False)
-        else:
-            speech = gTTS(text=text, lang='pt', tld='com.br', slow=False)
-
+        aiogtts = aiogTTS()
         sound_name = 'text.mp3'
 
-        speech.save(config['sounds'] + sound_name)
+        if not text:
+            await aiogtts.save(text='I have no idea what to talk', lang='pt', tld='com.br', slow=False,
+                               filename=config['sounds'] + sound_name)
+        else:
+            await aiogtts.save(text=text, lang='pt', tld='com.br', slow=False,
+                               filename=config['sounds'] + sound_name)
 
         await self.bot.get_cog('Voice').play(ctx, sound_name)
 
     @commands.command()
     @commands.has_role("Alexa")
     async def talk_accent(self, ctx, lang, tld, *, text=None):
-        lang = str(lang).lower()
-        tld = str(tld).lower()
+        aiogtts = aiogTTS()
+        sound_name = 'text.mp3'
 
-        try:
-            if not text:
-                speech = gTTS(text='AA', lang=lang, tld=tld, slow=False)
-            else:
-                speech = gTTS(text=text, lang=lang, tld=tld, slow=False)
+        if not text:
+            await aiogtts.save(text='I have no idea what to talk', lang=lang, tld=tld, slow=False,
+                               filename=config['sounds'] + sound_name)
+        else:
+            await aiogtts.save(text=text, lang=lang, tld=tld, slow=False, filename=config['sounds'] + sound_name)
 
-            sound_name = 'text.mp3'
-
-            speech.save(config['sounds'] + sound_name)
-
-            await self.bot.get_cog('Voice').play(ctx, sound_name)
-
-        except Exception as e:
-            await ctx.send(f"{ctx.message.author.mention}, sorry but something went wrong.")
+        await self.bot.get_cog('Voice').play(ctx, sound_name)
 
 
 def setup(bot):
