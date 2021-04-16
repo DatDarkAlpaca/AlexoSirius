@@ -14,12 +14,17 @@ class TTS(commands.Cog):
         aiogtts = aiogTTS()
         sound_name = 'text.mp3'
 
-        if not text:
-            await aiogtts.save(text='I have no idea what to talk', lang=lang, slow=False,
-                               filename=config['sounds'] + sound_name, tld=tld)
-        else:
-            await aiogtts.save(text=text, lang=lang, slow=False, filename=config['sounds'] + sound_name,
-                               tld=tld)
+        try:
+            if not text:
+                await aiogtts.save(text='I have no idea what to talk', lang=lang, slow=False,
+                                   filename=config['sounds'] + sound_name, tld=tld)
+            else:
+                await aiogtts.save(text=text, lang=lang, slow=False, filename=config['sounds'] + sound_name,
+                                   tld=tld)
+        except ValueError:
+            await ctx.send(f"{ctx.message.author.mention}, something went wrong. Perhaps you've chosen a "
+                           f"language that doesn't exist.?")
+            return
 
         await self.bot.get_cog('Sounds').play(ctx, sound_name)
 
