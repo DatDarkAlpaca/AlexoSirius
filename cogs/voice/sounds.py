@@ -44,6 +44,87 @@ class Sounds(commands.Cog):
 
     @commands.command()
     @commands.has_role("Alexa")
+    async def coffin_dance(self, ctx):
+        await Sounds.play(ctx, 'coffin_dance.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def deja_vu(self, ctx):
+        await Sounds.play(ctx, 'deja_vu.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def fbi(self, ctx):
+        await Sounds.play(ctx, 'fbi.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def gas(self, ctx):
+        await Sounds.play(ctx, 'gas.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def nani(self, ctx):
+        await Sounds.play(ctx, 'nani.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def run(self, ctx):
+        await Sounds.play(ctx, 'run.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def sad_violin(self, ctx):
+        await Sounds.play(ctx, 'sad_violin.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def swamp(self, ctx):
+        await Sounds.play(ctx, 'swamp.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def wide_putin(self, ctx):
+        await Sounds.play(ctx, 'wide_putin.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def beto(self, ctx):
+        await Sounds.play(ctx, 'beto.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def cade_o_respeito(self, ctx):
+        await Sounds.play(ctx, 'cade_o_respeito.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def chola_mais(self, ctx):
+        await Sounds.play(ctx, 'chola_mais.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def dilera_sua_mae(self, ctx):
+        await Sounds.play(ctx, 'dilera_sua_mãe.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def errou_rude(self, ctx):
+        await Sounds.play(ctx, 'errou_rude.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def faustao(self, ctx):
+        await Sounds.play(ctx, 'faustao.mp3')
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def yoda_solado(self, ctx):
+        await Sounds.play(ctx, 'yoda_solado.mp3')
+
+    # General:
+    @commands.command()
+    @commands.has_role("Alexa")
     async def sound(self, ctx, sound_name: str):
         sound_name = str(sound_name).lower()
 

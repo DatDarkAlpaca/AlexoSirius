@@ -35,8 +35,23 @@ class TTS(commands.Cog):
 
     @commands.command()
     @commands.has_role("Alexa")
+    async def brit(self, ctx, *, text=None):
+        await self._talk(ctx, lang='en', tld='co.uk', text=text)
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def talk_male(self, ctx, *, text=None):
+        await self._talk(ctx, lang='en', tld='com', text=text)
+
+    @commands.command()
+    @commands.has_role("Alexa")
     async def falar(self, ctx, *, text=None):
         await self._talk(ctx, lang='pt', tld='com.br', text=text)
+
+    @commands.command()
+    @commands.has_role("Alexa")
+    async def hanashi(self, ctx, *, text=None):
+        await self._talk(ctx, lang='ja', tld='jp', text=text)
 
     @commands.command()
     @commands.has_role("Alexa")
