@@ -1,0 +1,2 @@
+discord~=1.0.1
+aiogTTS~=1.1.0
