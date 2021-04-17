@@ -15,9 +15,13 @@ class VoiceChannel(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @staticmethod
+    async def _leave(ctx):
+        await safe_disconnect(ctx)
+
     @commands.command(name='join')
     @commands.has_role("Alexa")
-    async def _join(self, ctx):
+    async def join(self, ctx):
         voice_channel = ctx.author.voice.channel
 
         await safe_delete_message(ctx.message)
@@ -43,11 +47,11 @@ class VoiceChannel(commands.Cog):
 
     @commands.command(name='leave')
     @commands.has_role("Alexa")
-    async def _leave(self, ctx):
+    async def leave(self, ctx):
         mention = ctx.message.author.mention
 
         await safe_delete_message(ctx.message)
-        await safe_disconnect(ctx)
+        await VoiceChannel._leave(ctx)
 
         # Stop the timer:
         time = await self.bot.get_cog('Timer').stop(ctx)
