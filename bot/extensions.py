@@ -2,8 +2,12 @@ from fnmatch import fnmatch
 from os import walk
 
 
+def display_header():
+    version = open('./VERSION').read()
+    print(f"-=-= AlexoSirius | v{version} =-=-")
+
+
 def load_extensions(bot):
-    print('-=-=-= Alexo | v0.1a =-=-=-')
     file_pattern, exclude = '*.py', '_'
     any_cogs = False
     for path, subdirectories, files in walk('./cogs'):

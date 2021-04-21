@@ -23,29 +23,33 @@ class Bot(AutoShardedBot):
             helper = str(ctx.invoked_subcommand) if ctx.invoked_subcommand else str(ctx.command)
             await ctx.send_help(helper)
 
+        # Command Invoke:
         elif isinstance(err, errors.CommandInvokeError):
-            error = trace.traceback_maker(err.original)
-
             if '2000 or fewer' in str(err) and len(ctx.message.clean_content) > 1900:
-                return await ctx.send(f"{ctx.message.author.mention}, You\'ve tried to use a command that "
-                                      f"shows more than 2000 characters.", delete_after=7)
+                return await ctx.send(f"{ctx.message.author.mention}, \
+                                      You\'ve tried to use a command that \
+                                      sends more than 2000 characters.", delete_after=7)
 
-            await ctx.send('I\'m utterly sorry, but there was an error while trying to process the last error. The '
-                           'host should read it under the bot menu.', delete_after=10)
+            await ctx.send('I\'m sorry, but there was an error '
+                           'while trying to execute the last command. The '
+                           'host should be able to read it from the bot menu.', delete_after=10)
 
-            print(f"[Bot]: {error}")
-
+        # Command Failure:
         elif isinstance(err, errors.CheckFailure):
             pass
 
+        # Command Limit:
         elif isinstance(err, errors.MaxConcurrencyReached):
-            await ctx.send(f"{ctx.message.author.mention}, You've reached the limit of limits you can use at a time.",
+            await ctx.send(f"{ctx.message.author.mention}, \
+                           You've reached the limit of commands you can use at a time.",
                            delete_after=5)
 
+        # Command Cooldown:
         elif isinstance(err, errors.CommandOnCooldown):
             await ctx.send(f"This command is in cooldown. You can try it again later after {round(err.retry_after, 2)}"
                            f" seconds, {ctx.message.author.mention}", delete_after=7)
 
+        # Command Not Found:
         elif isinstance(err, errors.CommandNotFound):
             pass
 

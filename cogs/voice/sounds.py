@@ -122,6 +122,11 @@ class Sounds(commands.Cog):
     async def yoda_solado(self, ctx):
         await Sounds.play(ctx, 'yoda_solado.mp3')
 
+    @commands.command(hidden=True)
+    @commands.has_role("Alexa")
+    async def presente(self, ctx):
+        await Sounds.play(ctx, 'presente.mp3')
+
     # General:
     @commands.command(hidden=True)
     @commands.has_role("Alexa")
