@@ -15,10 +15,6 @@ class VoiceChannel(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @staticmethod
-    async def _leave(ctx):
-        await safe_disconnect(ctx)
-
     @commands.command(name='join')
     @commands.has_role("Alexa")
     async def join(self, ctx):
@@ -41,25 +37,11 @@ class VoiceChannel(commands.Cog):
         # Deafen:
         await ctx.guild.change_voice_state(channel=voice_channel, self_deaf=True)
 
-        # Start Timer:
-        if ctx.message.guild.id == 528000032356565032:
-            await self.bot.get_cog('Timer').start(ctx)
-
     @commands.command(name='leave')
     @commands.has_role("Alexa")
     async def leave(self, ctx):
-        mention = ctx.message.author.mention
-
         await safe_delete_message(ctx.message)
-        await VoiceChannel._leave(ctx)
-
-        # Stop the timer:
-        time = await self.bot.get_cog('Timer').stop(ctx)
-
-        # Sends a message:
-        if time and ctx.message.guild.id == 528000032356565032:
-            await ctx.send(f"{mention}, I've been in this call for {convert_time(time)}",
-                           delete_after=10)
+        await safe_disconnect(ctx)
 
 
 def setup(bot):
