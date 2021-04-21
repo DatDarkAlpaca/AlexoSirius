@@ -23,9 +23,11 @@ class Sounds(commands.Cog):
                 vc.play(FFmpegPCMAudio(executable=config['ffmpeg'], source=config['sounds'] + sound_name,
                                        options="-loglevel panic"))
             except ClientException:
-                await ctx.send(f"{ctx.message.author.mention}, I'm already playing a song", delete_after=5)
+                await ctx.send(f"{ctx.message.author.mention}, I'm already playing a sound.",
+                               delete_after=5)
         else:
-            await ctx.send(f"{ctx.message.author.mention}, am I connected to any voice chat?", delete_after=5)
+            await ctx.send(f"{ctx.message.author.mention}, am I connected to any voice chat?",
+                           delete_after=5)
 
     @commands.command(hidden=True)
     @commands.has_role("Alexa")
@@ -105,7 +107,7 @@ class Sounds(commands.Cog):
     @commands.command(hidden=True)
     @commands.has_role("Alexa")
     async def dilera_sua_mae(self, ctx):
-        await Sounds.play(ctx, 'dilera_sua_mãe.mp3')
+        await Sounds.play(ctx, 'dilera_sua_mae.mp3')
 
     @commands.command(hidden=True)
     @commands.has_role("Alexa")
